@@ -50,9 +50,9 @@ jobs:
       - name: Check the branch and print a message
         run: |
           if [[ "${GITHUB_REF}" == "refs/heads/main" ]]; then
-            echo "Committed to main"
+            echo "Committed to main branch"
           elif [[ "${GITHUB_REF}" == "refs/heads/master" ]]; then
-            echo "Committed to master"
+            echo "Committed to master branch"
           else
             echo "Committed to some other branch: ${GITHUB_REF}"
           fi
