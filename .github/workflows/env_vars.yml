@@ -1,7 +1,7 @@
 name: Publish GitHub Actions Artifacts Example
 on:
   push:
-    branches: [ main ]
+    branches: [ main, master ]
 jobs:
   github-actions-environment-variables-ubuntu:
     runs-on: ubuntu-latest
@@ -11,15 +11,48 @@ jobs:
 
       - name: Printing github actions variables
         run: |
+          echo "The username of the person or app that initiated the workflow run."
           echo "GITHUB_ACTOR=${GITHUB_ACTOR}"
+
+          echo "The Git reference (branch or tag) that triggered the workflow."
           echo "GITHUB_REF=${GITHUB_REF}"
+
+          echo "The commit SHA that triggered the workflow."
           echo "GITHUB_SHA=${GITHUB_SHA}"
+
+          echo "The owner and repository name "
           echo "GITHUB_REPOSITORY=${GITHUB_REPOSITORY}"
+
+          echo "The name of the event that triggered the workflow (push or pull request)"
           echo "GITHUB_EVENT_NAME=${GITHUB_EVENT_NAME}"
+
+          echo "The name of the workflow"
           echo "GITHUB_WORKFLOW=${GITHUB_WORKFLOW}"
+
+          echo "The unique identifier for the current run of the workflow."
           echo "GITHUB_RUN_ID=${GITHUB_RUN_ID}"
+
+          echo "The number of the run within the repository."
           echo "GITHUB_RUN_NUMBER=${GITHUB_RUN_NUMBER}"
+
+          echo "The head branch for pull requests."
           echo "GITHUB_HEAD_REF=${GITHUB_HEAD_REF}"
+
+          echo "The base branch for pull requests."
           echo "GITHUB_BASE_REF=${GITHUB_BASE_REF}"
+          
+          echo "The GitHub API URL"
           echo "GITHUB_API_URL=${GITHUB_API_URL}"
+
+          echo "The GitHub server URL"
           echo "GITHUB_SERVER_URL=${GITHUB_SERVER_URL}" 
+
+      - name: Check the branch and print a message
+        run: |
+          if [[ "${GITHUB_REF}" == "refs/heads/main" ]]; then
+            echo "Committed to main"
+          elif [[ "${GITHUB_REF}" == "refs/heads/master" ]]; then
+            echo "Committed to master"
+          else
+            echo "Committed to some other branch: ${GITHUB_REF}"
+          fi
